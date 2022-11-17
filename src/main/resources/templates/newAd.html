@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new ad</title>
+</head>
+<body>
+<h1>form for creating an ad</h1>
+<h2 th:text="${user.name} + ' ' + ${user.surname} + '(' + ${user.phoneNumber} + ')'"></h2>
+<form action="/ad/new" th:action="@{/ad/new}" th:object="${ad}" method="post">
+    <p>Title: <label>
+        <input type="text" th:field="*{title}">
+    </label>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </p>
+    <p>City: <label>
+        <select th:field="*{city}"  >
+            <option th:each="cityFromList : ${listOfCities}" th:value="${cityFromList.id}" th:text="${cityFromList.name}"></option>
+        </select>
+    </label></p>
+    <p>Description: <label>
+        <textarea th:field="*{description}"></textarea>
+    </label>
+    </p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>

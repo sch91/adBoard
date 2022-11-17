@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>user ads</title>
+</head>
+<body>
+<h1 th:text="'My ads ' + ${currentUser.name} + ' ' + ${currentUser.surname}"></h1>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Date of creation</th>
+  </tr>
+  <tr th:each="ad : ${listOfAds}">
+    <th th:text="${ad.title}"></th>
+    <th th:text="${ad.description}"></th>
+    <th th:text="${ad.dateOfCreation}"></th>
+  </tr>
+</table>
+</body>
+</html>

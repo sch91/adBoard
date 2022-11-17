@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+<body>
+<h1>Start page</h1>
+<p><span th:if="${#authentication}"><a href="/my_account">my account</a></span></p>
+<p><a href="/login">login</a></p>
+<p><a href="/registration">registration</a></p>
+</body>
+</html>
