@@ -36,7 +36,7 @@ public class AppController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult, Model model) {
+    public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult) {
         if (userService.isPhoneNumberAlreadyExists(user.getPhoneNumber())) {
             bindingResult.addError(new ObjectError("phoneNumber", "phone number is already exists"));
         }
@@ -57,7 +57,7 @@ public class AppController {
     public String myAds(Model model, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
         model.addAttribute("listOfAds", adService.getAllByUserId(currentUser.getId()));
-        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("user", currentUser);
         return "adsListByUser";
     }
 
