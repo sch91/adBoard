@@ -16,6 +16,8 @@ public class Ad {
     @NotBlank
     private String title;
 
+    private int price;
+
     private String description;
 
     @ManyToOne
@@ -78,5 +80,13 @@ public class Ad {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

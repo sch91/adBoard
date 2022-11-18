@@ -13,8 +13,13 @@
     </label>
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     </p>
+    <p>Price: <label>
+        <input type="text" th:field="*{price}">
+    </label>
+        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+    </p>
     <p>City: <label>
-        <select th:field="*{city}"  >
+        <select th:field="*{city}">
             <option th:each="cityFromList : ${listOfCities}" th:value="${cityFromList.id}" th:text="${cityFromList.name}"></option>
         </select>
     </label></p>
