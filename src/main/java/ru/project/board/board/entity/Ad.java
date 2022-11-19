@@ -2,6 +2,7 @@ package ru.project.board.board.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,9 +17,14 @@ public class Ad {
     @NotBlank
     private String title;
 
+    @NotNull
     private int price;
 
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
@@ -88,5 +94,13 @@ public class Ad {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
