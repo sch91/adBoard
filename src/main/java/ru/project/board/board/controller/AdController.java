@@ -7,12 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.project.board.board.entity.Ad;
+import ru.project.board.board.entity.Role;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.AdNotFoundException;
 import ru.project.board.board.service.AdService;
 import ru.project.board.board.service.CategoryService;
 import ru.project.board.board.service.CityService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.UUID;
 
@@ -50,7 +52,7 @@ public class AdController {
         return "redirect:/my_ads";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/info/{id}")
     public String showAd(@PathVariable("id") UUID id, Model model) {
         try {
             Ad ad = adService.getAdById(id);
@@ -58,6 +60,21 @@ public class AdController {
             return "showAd";
         } catch (AdNotFoundException e) {
             return "error";
+        }
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAd(@PathVariable("id") UUID id, Authentication authentication, HttpServletRequest request, Model model) {
+        String refer = request.getHeader("Referer");
+        try {
+            Ad ad = adService.getAdById(id);
+            User currentUser = (User) authentication.getPrincipal();
+            if (currentUser.getId().equals(ad.getUser().getId()) || currentUser.getRole().equals(Role.ROLE_ADMIN)) {
+                adService.deleteAdById(ad.getId());
+            }
+            return "redirect:" + refer;
+        } catch (AdNotFoundException e) {
+            return "redirect:" + refer;
         }
     }
 }

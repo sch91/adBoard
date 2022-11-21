@@ -34,4 +34,8 @@ public class AdService {
         ad.setDateOfCreation(LocalDateTime.now());
         adRepo.save(ad);
     }
+
+    public void deleteAdById(UUID id) {
+        adRepo.deleteById(id);
+    }
 }

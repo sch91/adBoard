@@ -11,11 +11,15 @@
         <th>Title</th>
         <th>Description</th>
         <th>Date of creation</th>
+        <th>More info</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="ad : ${listOfAds}">
         <th th:text="${ad.title}"></th>
         <th th:text="${ad.description}"></th>
         <th th:text="${ad.dateOfCreation}"></th>
+        <th><a th:href="'/ad/info/' + ${ad.id}">more info</a></th>
+        <th><a th:href="'/ad/delete/' + ${ad.id}">delete</a></th>
     </tr>
 </table>
 </body>

@@ -25,7 +25,7 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/registration", "/").permitAll()
-                .antMatchers("/my_account", "/my_ads", "/ad/new").authenticated()
+                .antMatchers("/my_account", "/my_ads", "/ad/new", "/ad/delete/**").authenticated()
                 .and()
                 .formLogin()
                 .usernameParameter("phoneNumber")
