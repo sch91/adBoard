@@ -11,6 +11,9 @@
 <p th:text="'Category: ' + ${ad.category.name}"></p>
 <p th:text="'City: ' + ${ad.city.name}"></p>
 <p th:text="'Date of creation: ' + ${ad.dateOfCreation}"></p>
+<ul th:each="image: ${ad.imageList}">
+    <li><img th:src="'/image/' + ${image.id}" ></li>
+</ul>
 <p>Creator: <a th:href="'/user/' + ${ad.user.id} + '/ads'" th:text="${ad.user.name} + ' ' + ${ad.user.surname}"></a></p>
 <p><a href="/ad/list">show list of ads</a></p>
 </body>
