@@ -7,7 +7,7 @@
 <body>
 <h1>form for creating an ad</h1>
 <h2 th:text="${user.name} + ' ' + ${user.surname} + '(' + ${user.phoneNumber} + ')'"></h2>
-<form action="/ad/new" th:action="@{/ad/new}" th:object="${ad}" method="post">
+<form action="/ad/new" th:action="@{/ad/new}" th:object="${ad}" method="post" enctype="multipart/form-data">
     <p>Title: <label>
         <input type="text" th:field="*{title}">
     </label>
@@ -32,6 +32,18 @@
     </label></p>
     <p>Description: <label>
         <textarea th:field="*{description}"></textarea>
+    </label>
+    </p>
+    <p>Image 1: <label>
+        <input type="file" name="file1">
+    </label>
+    </p>
+    <p>Image 2: <label>
+        <input type="file" name="file2">
+    </label>
+    </p>
+    <p>Image 3: <label>
+        <input type="file" name="file3">
     </label>
     </p>
     <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
