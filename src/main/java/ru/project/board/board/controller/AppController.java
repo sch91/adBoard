@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +38,7 @@ public class AppController {
     @PostMapping("/registration")
     public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult) {
         if (userService.isPhoneNumberAlreadyExists(user.getPhoneNumber())) {
-            bindingResult.addError(new ObjectError("phoneNumber", "phone number is already exists"));
+            bindingResult.addError(new FieldError("ad","phoneNumber", "phone number is already exists"));
         }
         if (bindingResult.hasFieldErrors()) {
             return "registration";

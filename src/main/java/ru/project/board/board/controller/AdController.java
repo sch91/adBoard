@@ -74,7 +74,7 @@ public class AdController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAd(@PathVariable("id") UUID id, Authentication authentication, HttpServletRequest request, Model model) {
+    public String deleteAd(@PathVariable("id") UUID id, Authentication authentication, HttpServletRequest request) {
         String refer = request.getHeader("Referer");
         try {
             Ad ad = adService.getAdById(id);
