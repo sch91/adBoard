@@ -24,7 +24,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/registration", "/").permitAll()
+                .antMatchers("/registration","/login").anonymous()
+                .antMatchers( "/").permitAll()
                 .antMatchers("/my_account", "/my_ads", "/ad/new", "/ad/delete/**").authenticated()
                 .and()
                 .formLogin()
