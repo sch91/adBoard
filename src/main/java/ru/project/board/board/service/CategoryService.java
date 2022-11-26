@@ -13,11 +13,7 @@ public class CategoryService {
     private CategoryRepo categoryRepo;
 
     public Category getCategoryById(Long id) throws CategoryNotFoundException {
-        Category category = categoryRepo.findById(id).get();
-        if (category == null) {
-            throw new CategoryNotFoundException("Category not found");
-        }
-        return category;
+        return categoryRepo.findById(id).orElseThrow(() -> new CategoryNotFoundException("Category not found"));
     }
 
     public Iterable<Category> getListOfCategories() {

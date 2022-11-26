@@ -1,10 +1,13 @@
 package ru.project.board.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.Ad;
 import ru.project.board.board.entity.Image;
+import ru.project.board.board.entity.Role;
+import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.AdNotFoundException;
 import ru.project.board.board.repository.AdRepo;
 import ru.project.board.board.repository.ImageRepo;
@@ -24,11 +27,7 @@ public class AdService {
     private ImageRepo imageRepo;
 
     public Ad getAdById(UUID id) throws AdNotFoundException {
-        Ad ad = adRepo.findById(id).get();
-        if (ad == null) {
-            throw new NullPointerException("ad not found");
-        }
-        return ad;
+        return adRepo.findById(id).orElseThrow(() -> new AdNotFoundException("Ad not found"));
     }
 
     public Iterable<Ad> getAllByUserId(UUID id) {
@@ -73,7 +72,11 @@ public class AdService {
         return image;
     }
 
-    public void deleteAdById(UUID id) {
-        adRepo.deleteById(id);
+    public void deleteAd(Ad ad, Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+        if (currentUser.getId().equals(ad.getUser().getId()) || currentUser.getRole().equals(Role.ROLE_ADMIN)) {
+            adRepo.deleteById(ad.getId());
+        }
+
     }
 }

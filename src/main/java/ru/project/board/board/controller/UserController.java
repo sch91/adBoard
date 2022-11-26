@@ -24,7 +24,7 @@ public class UserController {
     @Autowired
     private AdService adService;
 
-    @GetMapping("/{id}/ads")
+    @GetMapping("/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}/ads")
     public String adsByUser(@PathVariable("id") UUID id, Model model) {
         try {
             User user = userService.getUserById(id);
@@ -34,6 +34,7 @@ public class UserController {
             return "adsListByUser";
 
         } catch (UserNotFoundException e) {
+            model.addAttribute("errorMessage", "User not found");
             return "error";
         }
     }

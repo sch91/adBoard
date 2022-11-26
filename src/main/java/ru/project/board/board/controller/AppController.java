@@ -70,4 +70,9 @@ public class AppController {
     public String hello() {
         return "hello";
     }
+
+    @GetMapping("/error")
+    public String error(){
+        return "error";
+    }
 }

@@ -39,11 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUserById(UUID id) throws UserNotFoundException {
-        User user = userRepo.findById(id).get();
-        if (user == null) {
-            throw new UserNotFoundException("user not found");
-        }
-        return user;
+        return userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     public boolean isPhoneNumberAlreadyExists(String phoneNumber) {

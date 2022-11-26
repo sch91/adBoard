@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.Ad;
-import ru.project.board.board.entity.Role;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.AdNotFoundException;
 import ru.project.board.board.service.AdService;
@@ -62,29 +61,26 @@ public class AdController {
         return "redirect:/my_ads";
     }
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/info/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
     public String showAd(@PathVariable("id") UUID id, Model model) {
         try {
             Ad ad = adService.getAdById(id);
             model.addAttribute("ad", ad);
             return "showAd";
         } catch (AdNotFoundException e) {
-            return "error";
+            return "redirect:/error";
         }
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/delete/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
     public String deleteAd(@PathVariable("id") UUID id, Authentication authentication, HttpServletRequest request) {
         String refer = request.getHeader("Referer");
         try {
             Ad ad = adService.getAdById(id);
-            User currentUser = (User) authentication.getPrincipal();
-            if (currentUser.getId().equals(ad.getUser().getId()) || currentUser.getRole().equals(Role.ROLE_ADMIN)) {
-                adService.deleteAdById(ad.getId());
-            }
-            return "redirect:" + refer;
+            adService.deleteAd(ad, authentication);
         } catch (AdNotFoundException e) {
-            return "redirect:" + refer;
+            return "redirect:/error";
         }
+        return "redirect:" + refer;
     }
 }

@@ -15,11 +15,7 @@ public class CityService {
     private CityRepo cityRepo;
 
     public City getCityById(UUID id) throws CityNotFoundException {
-        City city = cityRepo.findById(id).get();
-        if (city == null) {
-            throw new CityNotFoundException("City not found");
-        }
-        return city;
+        return cityRepo.findById(id).orElseThrow(() -> new CityNotFoundException("City not found"));
     }
 
     public Iterable<City> getListOfCities() {

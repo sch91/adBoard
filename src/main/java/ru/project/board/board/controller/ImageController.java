@@ -20,7 +20,7 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
     private ResponseEntity<?> getImageById(@PathVariable("id") UUID id) {
         Image image = imageService.findById(id);
         return ResponseEntity.ok()
