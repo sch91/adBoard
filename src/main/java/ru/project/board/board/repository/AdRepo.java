@@ -10,5 +10,11 @@ public interface AdRepo extends JpaRepository<Ad, UUID> {
 
     Iterable<Ad> getAllByUserId(UUID id);
 
+    Iterable<Ad> getAllByCityId(UUID id);
+
+    Iterable<Ad> getAllByCategoryId(Long id);
+
+    Iterable<Ad> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId);
+
     Optional<Ad> findById(UUID id);
 }

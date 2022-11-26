@@ -34,6 +34,18 @@ public class AdService {
         return adRepo.getAllByUserId(id);
     }
 
+    public Iterable<Ad> getAllByCityId(UUID id) {
+        return adRepo.getAllByCityId(id);
+    }
+
+    public Iterable<Ad> getAllByCategoryId(Long id) {
+        return adRepo.getAllByCategoryId(id);
+    }
+
+    public Iterable<Ad> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId) {
+        return adRepo.getAllByCityIdAndCategoryId(cityId, categoryId);
+    }
+
     public Iterable<Ad> getAll() {
         return adRepo.findAll();
     }

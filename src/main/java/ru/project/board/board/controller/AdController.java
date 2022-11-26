@@ -83,4 +83,23 @@ public class AdController {
         }
         return "redirect:" + refer;
     }
+
+    @GetMapping("/list/by_city/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
+    public String listOfAdsByCity(@PathVariable("id") UUID id, Model model) {
+        model.addAttribute("listOfAds", adService.getAllByCityId(id));
+        return "listOfAdsByCity";
+    }
+
+    @GetMapping("/list/by_category/{id:\\d+}")
+    public String listOfAdsByCategory(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("listOfAds", adService.getAllByCategoryId(id));
+        return "listOfAdsByCategory";
+    }
+
+    @GetMapping("/list/by_city/{cityId:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}/by_category/{categoryId:\\d+}")
+    public String listOfAdsByCityAndCategory(@PathVariable("cityId") UUID cityId, @PathVariable("categoryId") Long categoryId, Model model) {
+        model.addAttribute("listOfAds", adService.getAllByCityIdAndCategoryId(cityId, categoryId));
+        return "listOfAdsByCityAndCategory";
+
+    }
 }
