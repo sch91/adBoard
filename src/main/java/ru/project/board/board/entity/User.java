@@ -6,9 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -19,7 +17,7 @@ public class User implements UserDetails {
     private UUID id;
 
     @NotBlank
-    @Column(unique = true, name = "phonenumber")
+    @Column(unique = true, name = "phoneNumber", nullable = false)
     @Pattern(regexp = "^\\+\\d{11}", message = "The phone number must match +___________")
     private String phoneNumber;
 
@@ -27,14 +25,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Pattern(regexp = "[а-яА-Яa-zA-Z]*", message = "The name must contain only alphabetic characters")
+    @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "The name must contain only alphabetic characters")
     @NotBlank(message = "Name required")
     private String name;
 
-    @Pattern(regexp = "[а-яА-Яa-zA-Z]*", message = "The surname must contain only alphabetic characters")
+    @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "The surname must contain only alphabetic characters")
     @NotBlank(message = "Surname required")
     private String surname;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     private boolean active;

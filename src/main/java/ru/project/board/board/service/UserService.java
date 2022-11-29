@@ -46,4 +46,8 @@ public class UserService implements UserDetailsService {
         User user = userRepo.findByPhoneNumber(phoneNumber);
         return user != null;
     }
+
+    public Iterable<User> getAllUsers() {
+        return userRepo.findAll();
+    }
 }
