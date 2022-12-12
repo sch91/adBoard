@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.service.AdService;
+import ru.project.board.board.service.CategoryService;
 import ru.project.board.board.service.UserService;
 
 import javax.validation.Valid;
@@ -23,6 +24,9 @@ public class AppController {
 
     @Autowired
     private AdService adService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/login")
     public String login() {
@@ -64,6 +68,7 @@ public class AppController {
     @GetMapping("/")
     public String startPage(Model model) {
         model.addAttribute("listOfAds", adService.getAll());
+        model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "startpage";
     }
 
