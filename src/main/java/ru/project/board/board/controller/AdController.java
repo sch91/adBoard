@@ -84,12 +84,6 @@ public class AdController {
         return "redirect:" + refer;
     }
 
-    @GetMapping("list")
-    public String listOfAds(Model model) {
-        model.addAttribute("listOfAds", adService.getAll());
-        return "listOfAds";
-    }
-
     @GetMapping("/list/by_city/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
     public String listOfAdsByCity(@PathVariable("id") UUID id, Model model) {
         model.addAttribute("listOfAds", adService.getAllByCityId(id));

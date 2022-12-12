@@ -9,5 +9,17 @@
 <p><span th:if="${#authentication}"><a href="/my_account">my account</a></span></p>
 <p><a href="/login">login</a></p>
 <p><a href="/registration">registration</a></p>
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>more info</th>
+    </tr>
+    <tr th:each="ad : ${listOfAds}">
+        <td th:text="${ad.title}"></td>
+        <td th:text="${ad.price}"></td>
+        <td><a th:href="'/ad/info/' + ${ad.id}">More info</a></td>
+    </tr>
+</table>
 </body>
 </html>

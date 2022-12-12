@@ -38,7 +38,7 @@ public class AppController {
     @PostMapping("/registration")
     public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult) {
         if (userService.isPhoneNumberAlreadyExists(user.getPhoneNumber())) {
-            bindingResult.addError(new FieldError("ad","phoneNumber", "phone number is already exists"));
+            bindingResult.addError(new FieldError("ad", "phoneNumber", "phone number is already exists"));
         }
         if (bindingResult.hasFieldErrors()) {
             return "registration";
@@ -62,7 +62,8 @@ public class AppController {
     }
 
     @GetMapping("/")
-    public String startPage() {
+    public String startPage(Model model) {
+        model.addAttribute("listOfAds", adService.getAll());
         return "startpage";
     }
 
@@ -72,7 +73,7 @@ public class AppController {
     }
 
     @GetMapping("/error")
-    public String error(){
+    public String error() {
         return "error";
     }
 }
