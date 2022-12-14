@@ -39,7 +39,7 @@ public class User implements UserDetails {
     private boolean active;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Ad> adList;
+    private List<Advertisement> advertisementList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -131,11 +131,11 @@ public class User implements UserDetails {
         this.active = active;
     }
 
-    public List<Ad> getAdList() {
-        return adList;
+    public List<Advertisement> getAdvertisementList() {
+        return advertisementList;
     }
 
-    public void setAdList(List<Ad> adList) {
-        this.adList = adList;
+    public void setAdvertisementList(List<Advertisement> advertisementList) {
+        this.advertisementList = advertisementList;
     }
 }

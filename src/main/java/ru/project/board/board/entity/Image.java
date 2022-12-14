@@ -24,8 +24,8 @@ public class Image {
     private byte[] bytes;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ad_id", nullable = false)
-    private Ad ad;
+    @JoinColumn(name = "advertisement_id", nullable = false)
+    private Advertisement advertisement;
 
     public Image() {
     }
@@ -78,11 +78,11 @@ public class Image {
         this.bytes = bytes;
     }
 
-    public Ad getAd() {
-        return ad;
+    public Advertisement getAdvertisement() {
+        return advertisement;
     }
 
-    public void setAd(Ad ad) {
-        this.ad = ad;
+    public void setAdvertisement(Advertisement advertisement) {
+        this.advertisement = advertisement;
     }
 }

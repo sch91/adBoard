@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.board.board.entity.Ad;
+import ru.project.board.board.entity.Advertisement;
 import ru.project.board.board.entity.Image;
 import ru.project.board.board.entity.Role;
 import ru.project.board.board.entity.User;
@@ -26,68 +26,68 @@ public class AdService {
     @Autowired
     private ImageRepo imageRepo;
 
-    public Ad getAdById(UUID id) throws AdNotFoundException {
+    public Advertisement getAdById(UUID id) throws AdNotFoundException {
         return adRepo.findById(id).orElseThrow(() -> new AdNotFoundException("Ad not found"));
     }
 
-    public Iterable<Ad> getAllByUserId(UUID id) {
+    public Iterable<Advertisement> getAllByUserId(UUID id) {
         return adRepo.getAllByUserId(id);
     }
 
-    public Iterable<Ad> getAllByCityId(UUID id) {
+    public Iterable<Advertisement> getAllByCityId(UUID id) {
         return adRepo.getAllByCityId(id);
     }
 
-    public Iterable<Ad> getAllByCategoryId(Long id) {
+    public Iterable<Advertisement> getAllByCategoryId(Long id) {
         return adRepo.getAllByCategoryId(id);
     }
 
-    public Iterable<Ad> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId) {
+    public Iterable<Advertisement> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId) {
         return adRepo.getAllByCityIdAndCategoryId(cityId, categoryId);
     }
 
-    public Iterable<Ad> getAll() {
+    public Iterable<Advertisement> getAll() {
         return adRepo.findAll();
     }
 
-    public void createAd(Ad ad, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
+    public void createAd(Advertisement advertisement, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
         List<Image> images = new ArrayList<>();
-        ad = adRepo.save(ad);
+        advertisement = adRepo.save(advertisement);
         if (file1.getSize() != 0) {
-            Image img = toImage(file1, ad);
+            Image img = toImage(file1, advertisement);
             img = imageRepo.save(img);
             images.add(img);
         }
         if (file2.getSize() != 0) {
-            Image img = toImage(file2, ad);
+            Image img = toImage(file2, advertisement);
             img = imageRepo.save(img);
             images.add(img);
         }
         if (file3.getSize() != 0) {
-            Image img = toImage(file3, ad);
+            Image img = toImage(file3, advertisement);
             img = imageRepo.save(img);
             images.add(img);
         }
-        ad.setDateOfCreation(LocalDateTime.now());
-        ad.setImageList(images);
-        adRepo.save(ad);
+        advertisement.setDateOfCreation(LocalDateTime.now());
+        advertisement.setImageList(images);
+        adRepo.save(advertisement);
     }
 
-    private Image toImage(MultipartFile file, Ad ad) throws IOException {
+    private Image toImage(MultipartFile file, Advertisement advertisement) throws IOException {
         Image image = new Image();
         image.setName(file.getName());
         image.setOriginalFileName(file.getOriginalFilename());
         image.setContentType(file.getContentType());
         image.setSize(file.getSize());
         image.setBytes(file.getBytes());
-        image.setAd(ad);
+        image.setAdvertisement(advertisement);
         return image;
     }
 
-    public void deleteAd(Ad ad, Authentication authentication) {
+    public void deleteAd(Advertisement advertisement, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
-        if (currentUser.getId().equals(ad.getUser().getId()) || currentUser.getRole().equals(Role.ROLE_ADMIN)) {
-            adRepo.deleteById(ad.getId());
+        if (currentUser.getId().equals(advertisement.getUser().getId()) || currentUser.getRole().equals(Role.ROLE_ADMIN)) {
+            adRepo.deleteById(advertisement.getId());
         }
 
     }

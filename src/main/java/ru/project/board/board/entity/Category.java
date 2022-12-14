@@ -13,8 +13,8 @@ public class Category {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "city")
-    private List<Ad> adList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    private List<Advertisement> advertisementList;
 
     public Category() {
     }
@@ -35,11 +35,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<Ad> getAdList() {
-        return adList;
+    public List<Advertisement> getAdvertisementList() {
+        return advertisementList;
     }
 
-    public void setAdList(List<Ad> adList) {
-        this.adList = adList;
+    public void setAdvertisementList(List<Advertisement> advertisementList) {
+        this.advertisementList = advertisementList;
     }
 }

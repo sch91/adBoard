@@ -16,7 +16,7 @@ public class City {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "city")
-    private List<Ad> adList;
+    private List<Advertisement> advertisementList;
 
     public City() {
     }
@@ -37,11 +37,11 @@ public class City {
         this.name = name;
     }
 
-    public List<Ad> getAdList() {
-        return adList;
+    public List<Advertisement> getAdvertisementList() {
+        return advertisementList;
     }
 
-    public void setAdList(List<Ad> adList) {
-        this.adList = adList;
+    public void setAdvertisementList(List<Advertisement> advertisementList) {
+        this.advertisementList = advertisementList;
     }
 }

@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ads")
-public class Ad {
+@Table(name = "advertisements")
+public class Advertisement {
     @Id
     @GeneratedValue
     @Column(unique = true, nullable = false, length = 16)
@@ -39,10 +39,10 @@ public class Ad {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "ad")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "advertisement")
     private List<Image> imageList = new ArrayList<>();
 
-    public Ad() {
+    public Advertisement() {
     }
 
     public UUID getId() {
