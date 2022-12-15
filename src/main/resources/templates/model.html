@@ -35,10 +35,24 @@
                 </div>
 
                 <div sec:authorize="isAuthenticated()" class="text-end">
-                    <div class="dropdown text-end">
-                            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
-                                <img th:src="'/avatar/' + ${#authentication.getPrincipal().avatar.id}" alt="mdo" width="40" height="40" class="rounded-circle">
-                            </a>
+                    <div th:if="${#authentication.getPrincipal().avatar == null}" class="dropdown text-end">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
+                            <img src="https://omsk.imperiya-pola.ru/img/nophoto.jpg" alt="mdo" width="40" height="40" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><h4 class="text-center text-primary float-right" th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4></li>
+                            <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
+                            <li><a class="dropdown-item" href="/ad/new">Добавить объявление</a></li>
+                            <li><a class="dropdown-item" href="/my_ads">Мои объявления</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item " href="/logout">Выйти из профиля</a></li>
+                        </ul>
+                    </div>
+
+                    <div th:if="${#authentication.getPrincipal().avatar != null}" class="dropdown text-end">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
+                            <img th:src="'/avatar/' + ${#authentication.getPrincipal().avatar.id}" alt="mdo" width="40" height="40" class="rounded-circle">
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><h4 class="text-center text-primary float-right" th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4></li>
                             <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
