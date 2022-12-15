@@ -41,6 +41,13 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Advertisement> advertisementList;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id")
+    private Avatar avatar;
+
+    public User() {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -76,8 +83,6 @@ public class User implements UserDetails {
         return active;
     }
 
-    public User() {
-    }
 
     public UUID getId() {
         return id;
@@ -137,5 +142,13 @@ public class User implements UserDetails {
 
     public void setAdvertisementList(List<Advertisement> advertisementList) {
         this.advertisementList = advertisementList;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 }

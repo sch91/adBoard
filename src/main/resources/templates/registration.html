@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Form for adding a user</h1>
-<form action="/registration" th:action="@{/registration}" th:object="${user}" method="post">
+<form action="/registration" th:action="@{/registration}" th:object="${user}" method="post" enctype="multipart/form-data">
   <p>Name: <label>
     <input type="text" th:field="*{name}">
   </label>
@@ -18,6 +18,10 @@
   </label>
     <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
           </span>
+  </p>
+  <p>Avatar: <label>
+    <input type="file" accept=".png, .jpg, .jpeg" name="file">
+  </label>
   </p>
   <p>Phone number: <label>
     <input type="text" th:field="*{phoneNumber}">

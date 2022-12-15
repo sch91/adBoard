@@ -6,11 +6,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import ru.project.board.board.entity.Avatar;
 import ru.project.board.board.entity.Role;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.UserNotFoundException;
+import ru.project.board.board.repository.AvatarRepo;
 import ru.project.board.board.repository.UserRepo;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
@@ -21,6 +25,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private AvatarRepo avatarRepo;
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
@@ -31,10 +37,24 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public void registration(User user) {
+    public void registration(User user, MultipartFile file) throws IOException {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
         user.setRole(Role.ROLE_USER);
+        user = userRepo.save(user);
+        if (file.getSize() != 0) {
+            Avatar avatar = new Avatar();
+            avatar.setName(file.getName());
+            avatar.setOriginalFileName(file.getOriginalFilename());
+            avatar.setContentType(file.getContentType());
+            avatar.setSize(file.getSize());
+            avatar.setBytes(file.getBytes());
+            avatar.setUser(user);
+            avatar = avatarRepo.save(avatar);
+            user.setAvatar(avatar);
+        } else {
+            user.setAvatar(null);
+        }
         userRepo.save(user);
     }
 
