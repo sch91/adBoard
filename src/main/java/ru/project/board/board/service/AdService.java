@@ -15,7 +15,6 @@ import ru.project.board.board.repository.ImageRepo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -51,25 +50,9 @@ public class AdService {
     }
 
     public void createAd(Advertisement advertisement, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
-        List<Image> images = new ArrayList<>();
         advertisement = adRepo.save(advertisement);
-        if (file1.getSize() != 0) {
-            Image img = toImage(file1, advertisement);
-            img = imageRepo.save(img);
-            images.add(img);
-        }
-        if (file2.getSize() != 0) {
-            Image img = toImage(file2, advertisement);
-            img = imageRepo.save(img);
-            images.add(img);
-        }
-        if (file3.getSize() != 0) {
-            Image img = toImage(file3, advertisement);
-            img = imageRepo.save(img);
-            images.add(img);
-        }
         advertisement.setDateOfCreation(LocalDateTime.now());
-        advertisement.setImageList(images);
+        advertisement.setImageList(generateListOfImages(file1, file2, file3, advertisement));
         adRepo.save(advertisement);
     }
 
@@ -81,8 +64,33 @@ public class AdService {
         image.setSize(file.getSize());
         image.setBytes(file.getBytes());
         image.setAdvertisement(advertisement);
+        image = imageRepo.save(image);
         return image;
     }
+
+    private ArrayList<Image> generateListOfImages(MultipartFile file1, MultipartFile file2, MultipartFile file3, Advertisement ad) throws IOException {
+        ArrayList<Image> images = new ArrayList<>();
+        if (file1.getSize() != 0) {
+            images.add(toImage(file1, ad));
+        }
+        if (file2.getSize() != 0) {
+            images.add(toImage(file2, ad));
+        }
+        if (file3.getSize() != 0) {
+            images.add(toImage(file3, ad));
+        }
+        return images;
+    }
+
+    public void edit(Advertisement currentAd, Advertisement advertisement) {
+        currentAd.setCategory(advertisement.getCategory());
+        currentAd.setCity(advertisement.getCity());
+        currentAd.setDescription(advertisement.getDescription());
+        currentAd.setPrice(advertisement.getPrice());
+        currentAd.setTitle(advertisement.getTitle());
+        adRepo.save(currentAd);
+    }
+
 
     public void deleteAd(Advertisement advertisement, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();

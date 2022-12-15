@@ -8,8 +8,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.Advertisement;
+import ru.project.board.board.entity.Category;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.AdNotFoundException;
+import ru.project.board.board.exception.CategoryNotFoundException;
 import ru.project.board.board.service.AdService;
 import ru.project.board.board.service.CategoryService;
 import ru.project.board.board.service.CityService;
@@ -73,6 +75,41 @@ public class AdController {
         }
     }
 
+    @GetMapping("/edit/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
+    public String editAdGet(@PathVariable("id") UUID id, Model model, Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+        try {
+            Advertisement advertisement = adService.getAdById(id);
+            if (!currentUser.getId().equals(advertisement.getUser().getId())) {
+                throw new AdNotFoundException("");
+            }
+            model.addAttribute("ad", advertisement);
+            model.addAttribute("listOfCities", cityService.getListOfCities());
+            model.addAttribute("listOfCategories", categoryService.getListOfCategories());
+        } catch (AdNotFoundException e) {
+            return "redirect:/error";
+        }
+        return "editAd";
+    }
+
+    @PostMapping("/edit/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
+    public String editAdPost(@PathVariable("id") UUID id,
+                             @ModelAttribute(value = "ad") Advertisement advertisement,
+                             BindingResult bindingResult) {
+
+        Advertisement currentAd;
+        try {
+            currentAd = adService.getAdById(id);
+        } catch (AdNotFoundException e) {
+            return "redirect:/error";
+        }
+        if (bindingResult.hasErrors()) {
+            return "redirect:/ad/edit/" + id;
+        }
+        adService.edit(currentAd, advertisement);
+        return "redirect:/ad/info/" + id;
+    }
+
     @GetMapping("/delete/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
     public String deleteAd(@PathVariable("id") UUID id, Authentication authentication, HttpServletRequest request) {
         String refer = request.getHeader("Referer");
@@ -93,6 +130,12 @@ public class AdController {
 
     @GetMapping("/list/by_category/{id:\\d+}")
     public String listOfAdsByCategory(@PathVariable("id") Long id, Model model) {
+        try {
+            Category category = categoryService.getCategoryById(id);
+            model.addAttribute("category", category);
+        } catch (CategoryNotFoundException e) {
+            return "redirect:/error";
+        }
         model.addAttribute("listOfAds", adService.getAllByCategoryId(id));
         model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "adsByCategory";
