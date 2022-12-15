@@ -29,10 +29,30 @@
                 </ul>
 
 
-
-                <div class="text-end">
+                <div sec:authorize="isAnonymous()" class="text-end">
                     <a type="button" href="/login" class="btn btn-outline-light me-2">Login</a>
                     <a type="button" href="/registration" class="btn btn-warning">Sign-up</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()" class="text-end">
+                    <div class="dropdown text-end">
+                            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle show row" data-bs-toggle="dropdown" aria-expanded="true" >
+                                <div class="col">
+                                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                                </div>
+                                <div class="col">
+                                    <p class="text-center text-primary" th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></p>
+                                </div>
+                            </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><h4 class="text-center text-primary float-right" th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4></li>
+                            <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
+                            <li><a class="dropdown-item" href="/ad/new">Добавить объявление</a></li>
+                            <li><a class="dropdown-item" href="/my_ads">Мои объявления</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item " href="/logout">Выйти из профиля</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
