@@ -65,6 +65,26 @@ public class AppController {
         return "myAccount";
     }
 
+    @GetMapping("/my_account/edit")
+    public String editMyAccountGet(Model model, Authentication authentication) {
+        model.addAttribute("user", (User) authentication.getPrincipal());
+        return "editProfile";
+    }
+
+    @PostMapping("/my_account/edit")
+    public String editMyAccountPost(@ModelAttribute(value = "user") User user,
+                                    @RequestParam("file") MultipartFile file,
+                                    BindingResult bindingResult,
+                                    Authentication authentication, Model model) throws IOException {
+        User currentUser = (User) authentication.getPrincipal();
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", currentUser);
+            return "editProfile";
+        }
+        userService.edit(currentUser, user, file);
+        return "redirect:/my_account";
+    }
+
     @GetMapping("/my_ads")
     public String myAds(Model model, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();

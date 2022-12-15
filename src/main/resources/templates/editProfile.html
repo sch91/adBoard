@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,19 +8,22 @@
 <body class="img-fluid" style="background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618458257_40-phonoteka_org-p-fon-dlya-lendinga-40.jpg');">
 <div th:insert="~{model :: header}"></div>
 <h1>Form for adding a user</h1>
-
-<form action="/registration" th:action="@{/registration}" th:object="${user}" method="post">
+<form action="/my_account/edit" th:action="@{/my_account/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
     <p>Name: <label>
-        <input type="text" th:field="*{name}" th:value="#{name}">
+        <input type="text" th:field="*{name}" th:value="${name}">
     </label>
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
           </span>
     </p>
     <p>Surname: <label>
-        <input type="text" th:field="*{surname}" th:value="#{surname}">
+        <input type="text" th:field="*{surname}" th:value="${surname}">
     </label>
         <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
           </span>
+    </p>
+    <p>Avatar: <label>
+        <input type="file" accept=".png, .jpg, .jpeg" name="file">
+    </label>
     </p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>

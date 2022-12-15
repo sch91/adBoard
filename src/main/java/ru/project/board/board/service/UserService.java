@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.board.board.entity.Avatar;
-import ru.project.board.board.entity.Role;
-import ru.project.board.board.entity.User;
+import ru.project.board.board.entity.*;
 import ru.project.board.board.exception.UserNotFoundException;
 import ru.project.board.board.repository.AvatarRepo;
 import ru.project.board.board.repository.UserRepo;
@@ -43,19 +41,32 @@ public class UserService implements UserDetailsService {
         user.setRole(Role.ROLE_USER);
         user = userRepo.save(user);
         if (file.getSize() != 0) {
-            Avatar avatar = new Avatar();
-            avatar.setName(file.getName());
-            avatar.setOriginalFileName(file.getOriginalFilename());
-            avatar.setContentType(file.getContentType());
-            avatar.setSize(file.getSize());
-            avatar.setBytes(file.getBytes());
-            avatar.setUser(user);
-            avatar = avatarRepo.save(avatar);
-            user.setAvatar(avatar);
+            user.setAvatar(toAvatar(file, user));
         } else {
             user.setAvatar(null);
         }
         userRepo.save(user);
+    }
+
+    public void edit(User currentUser, User user, MultipartFile file) throws IOException {
+        currentUser.setName(user.getName());
+        currentUser.setSurname(user.getSurname());
+        if (file.getSize() != 0) {
+            currentUser.setAvatar(toAvatar(file, currentUser));
+        }
+        userRepo.save(currentUser);
+    }
+
+    private Avatar toAvatar(MultipartFile file, User user) throws IOException {
+        Avatar avatar = new Avatar();
+        avatar.setName(file.getName());
+        avatar.setOriginalFileName(file.getOriginalFilename());
+        avatar.setContentType(file.getContentType());
+        avatar.setSize(file.getSize());
+        avatar.setBytes(file.getBytes());
+        avatar.setUser(user);
+        avatar = avatarRepo.save(avatar);
+        return avatar;
     }
 
     public User getUserById(UUID id) throws UserNotFoundException {
