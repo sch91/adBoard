@@ -18,7 +18,7 @@
                     </button>
                         <ul  class="dropdown-menu dropdown-menu-dark">
                             <li th:each="Categoria: ${listOfCategories}">
-                                <a  class="dropdown-item"  th:href="'/ad/list/by_categorie/' + ${Categoria.id}" th:text="${Categoria.name}" ></a>
+                                <a  class="dropdown-item"  th:href="'/ad/list/by_category/' + ${Categoria.id}" th:text="${Categoria.name}" ></a>
                             </li>
                         </ul>
                     </li>

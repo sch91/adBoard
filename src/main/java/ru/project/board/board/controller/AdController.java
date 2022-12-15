@@ -95,7 +95,7 @@ public class AdController {
     public String listOfAdsByCategory(@PathVariable("id") Long id, Model model) {
         model.addAttribute("listOfAds", adService.getAllByCategoryId(id));
         model.addAttribute("listOfCategories", categoryService.getListOfCategories());
-        return "listOfAdsByCategory";
+        return "adsByCategory";
     }
 
     @GetMapping("/list/by_city/{cityId:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}/by_category/{categoryId:\\d+}")
