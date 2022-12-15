@@ -91,7 +91,6 @@ public class AdService {
         adRepo.save(currentAd);
     }
 
-
     public void deleteAd(Advertisement advertisement, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
         if (currentUser.getId().equals(advertisement.getUser().getId()) || currentUser.getRole().equals(Role.ROLE_ADMIN)) {

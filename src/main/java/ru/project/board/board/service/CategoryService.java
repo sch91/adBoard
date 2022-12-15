@@ -19,4 +19,8 @@ public class CategoryService {
     public Iterable<Category> getListOfCategories() {
         return categoryRepo.findAll();
     }
+
+    public void deleteCategoryById(Long id) {
+        categoryRepo.deleteById(id);
+    }
 }

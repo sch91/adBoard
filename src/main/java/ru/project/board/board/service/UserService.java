@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.*;
 import ru.project.board.board.exception.UserNotFoundException;
@@ -48,10 +49,12 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
+    @Transactional
     public void edit(User currentUser, User user, MultipartFile file) throws IOException {
         currentUser.setName(user.getName());
         currentUser.setSurname(user.getSurname());
         if (file.getSize() != 0) {
+            avatarRepo.delete(currentUser.getAvatar());
             currentUser.setAvatar(toAvatar(file, currentUser));
         }
         userRepo.save(currentUser);

@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -46,6 +48,13 @@ public class User implements UserDetails {
     private Avatar avatar;
 
     public User() {
+    }
+
+    public User(String phoneNumber, String password, String name, String surname) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
     }
 
     @Override
