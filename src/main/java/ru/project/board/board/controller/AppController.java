@@ -32,13 +32,16 @@ public class AppController {
     private CategoryService categoryService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "login";
     }
+
 
     @GetMapping("/registration")
     public String registrationGet(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "registration";
     }
 
@@ -51,12 +54,14 @@ public class AppController {
             return "registration";
         }
         userService.registration(user, file);
+
         return "redirect:/login";
     }
 
     @GetMapping("/my_account")
     public String myAccount(Model model, Authentication authentication) {
         model.addAttribute("user", (User) authentication.getPrincipal());
+        model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "myAccount";
     }
 
@@ -64,6 +69,7 @@ public class AppController {
     public String myAds(Model model, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
         model.addAttribute("listOfAds", adService.getAllByUserId(currentUser.getId()));
+        model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         model.addAttribute("user", currentUser);
         return "adsListByUser";
     }

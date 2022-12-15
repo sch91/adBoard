@@ -66,6 +66,7 @@ public class AdController {
         try {
             Advertisement advertisement = adService.getAdById(id);
             model.addAttribute("ad", advertisement);
+            model.addAttribute("listOfCategories", categoryService.getListOfCategories());
             return "showAd";
         } catch (AdNotFoundException e) {
             return "redirect:/error";
@@ -93,6 +94,7 @@ public class AdController {
     @GetMapping("/list/by_category/{id:\\d+}")
     public String listOfAdsByCategory(@PathVariable("id") Long id, Model model) {
         model.addAttribute("listOfAds", adService.getAllByCategoryId(id));
+        model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "listOfAdsByCategory";
     }
 
