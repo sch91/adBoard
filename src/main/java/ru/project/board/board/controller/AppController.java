@@ -60,6 +60,8 @@ public class AppController {
 
     @GetMapping("/my_account")
     public String myAccount(Model model, Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+        model.addAttribute("listOfAds", adService.getAllByUserId(currentUser.getId()));
         model.addAttribute("user", (User) authentication.getPrincipal());
         model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "myAccount";
