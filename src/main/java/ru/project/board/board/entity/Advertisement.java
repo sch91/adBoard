@@ -22,6 +22,7 @@ public class Advertisement {
     @NotNull
     private int price;
 
+    @Column(length = 1000)
     private String description;
 
     @ManyToOne
