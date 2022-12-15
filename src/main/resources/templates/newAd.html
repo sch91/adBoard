@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create new ad</title>
+    <title>Create new advertisement</title>
 </head>
 <body>
-<h1>form for creating an ad</h1>
+<h1>form for creating an advertisement</h1>
 <h2 th:text="${user.name} + ' ' + ${user.surname} + '(' + ${user.phoneNumber} + ')'"></h2>
 <form action="/ad/new" th:action="@{/ad/new}" th:object="${ad}" method="post" enctype="multipart/form-data">
     <p>Title: <label>

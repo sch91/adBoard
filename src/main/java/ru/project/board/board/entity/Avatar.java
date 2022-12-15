@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "images")
-public class Image {
+@Table(name = "avatars")
+public class Avatar {
 
     @Id
     @GeneratedValue
@@ -23,11 +23,10 @@ public class Image {
     @Lob
     private byte[] bytes;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "advertisement_id", nullable = false)
-    private Advertisement advertisement;
+    @OneToOne(mappedBy = "avatar")
+    private User user;
 
-    public Image() {
+    public Avatar() {
     }
 
     public UUID getId() {
@@ -78,11 +77,11 @@ public class Image {
         this.bytes = bytes;
     }
 
-    public Advertisement getAdvertisement() {
-        return advertisement;
+    public User getUser() {
+        return user;
     }
 
-    public void setAdvertisement(Advertisement advertisement) {
-        this.advertisement = advertisement;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

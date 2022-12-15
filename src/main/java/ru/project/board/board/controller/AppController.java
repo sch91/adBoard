@@ -9,12 +9,15 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.service.AdService;
 import ru.project.board.board.service.CategoryService;
 import ru.project.board.board.service.UserService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class AppController {
@@ -40,15 +43,15 @@ public class AppController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult) {
+    public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file) throws IOException {
         if (userService.isPhoneNumberAlreadyExists(user.getPhoneNumber())) {
             bindingResult.addError(new FieldError("ad", "phoneNumber", "phone number is already exists"));
         }
         if (bindingResult.hasFieldErrors()) {
             return "registration";
         }
-        userService.registration(user);
-        return "redirect:/";
+        userService.registration(user, file);
+        return "redirect:/login";
     }
 
     @GetMapping("/my_account")

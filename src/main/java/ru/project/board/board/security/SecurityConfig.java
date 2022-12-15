@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/registration", "/login").anonymous()
                 .antMatchers("/").permitAll()
-                .antMatchers("/my_account", "/my_ads", "/ad/new", "/ad/delete/**", "/admin/**").authenticated()
+                .antMatchers("/my_account", "/my_ads", "/ad/new", "/ad/delete/**", "/admin/**", "/user/**/ads").authenticated()
                 .and()
                 .formLogin()
                 .usernameParameter("phoneNumber")
