@@ -18,7 +18,7 @@
                     </button>
                         <ul  class="dropdown-menu dropdown-menu-dark">
                             <li th:each="Categoria: ${listOfCategories}">
-                                <a  class="dropdown-item"  th:href="'/ad/list/by_category/' + ${Categoria.id}" th:text="${Categoria.name}" ></a>
+                                <a  class="dropdown-item"  th:href="'/ad/list/by_category/' + ${Categoria.id}" th:text="${Categoria.name}"></a>
                             </li>
                         </ul>
                     </li>
@@ -44,6 +44,14 @@
                             <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
                             <li><a class="dropdown-item" href="/ad/new">Добавить объявление</a></li>
                             <li><a class="dropdown-item" href="/my_ads">Мои объявления</a></li>
+                            <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_ADMIN'}">
+                                <li>
+                                    <a class="dropdown-item" href="/admin/users">Список пользователей</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/admin/ads">Мои объявления</a>
+                                </li>
+                            </div>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item " href="/logout">Выйти из профиля</a></li>
                         </ul>
@@ -58,6 +66,14 @@
                             <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
                             <li><a class="dropdown-item" href="/ad/new">Добавить объявление</a></li>
                             <li><a class="dropdown-item" href="/my_ads">Мои объявления</a></li>
+                            <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_ADMIN'}">
+                                <li>
+                                    <a class="dropdown-item" href="/admin/users">Список пользователей</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/admin/ads">Список объявлений</a>
+                                </li>
+                            </div>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item " href="/logout">Выйти из профиля</a></li>
                         </ul>

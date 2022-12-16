@@ -8,7 +8,7 @@
 
 <body class="img-fluid" style="background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618458257_40-phonoteka_org-p-fon-dlya-lendinga-40.jpg');">
 <div th:insert="~{model :: header}"></div>
-<h1>Start page</h1>
+<h1 class="display-1 text-center"><strong>Сайт объявлений</strong></h1>
 
 <div class="container-fluid my-carousel">
 
@@ -30,7 +30,10 @@
                 <p th:text="'Город: ' + ${ad.city.name}" class="card-text"></p>
                 <p th:text="'Цена: '+${ad.price}+'p.'" class="card-text"></p>
                 <p th:text="'Дата публикации: ' +  ${#temporals.format(ad.dateOfCreation,'dd-MM-yyyy HH:mm')}"></p>
-                <a th:href="'/ad/info/' + ${ad.id}" class="btn btn-secondary float-end">Подробнее...</a>
+
+            </div>
+            <div class="d-flex justify-content-end text-center py-1">
+                <a type="button" th:href="'/ad/info/' + ${ad.id}" class="btn btn-secondary">Подробнее...</a>
             </div>
         </div>
     </div>

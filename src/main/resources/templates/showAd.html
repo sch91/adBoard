@@ -7,6 +7,73 @@
 </head>
 <body class="img-fluid" style="background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618458257_40-phonoteka_org-p-fon-dlya-lendinga-40.jpg');">
 <div th:insert="~{model :: header}"></div>
+<section class="h-100 gradient-custom-2 ">
+    <div class="container py-5 h-100 ">
+        <div class="row d-flex justify-content-center align-items-center h-100 ">
+            <div class="col col-lg-9 col-xl-12 ">
+                <div class="card bg-dark">
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <div class="d-flex justify-content-end text-center py-1">
+                            <div sec:authorize="isAuthenticated()" class="px-3">
+                                <p>Creator: <a  class="btn" th:href="'/user/' + ${ad.user.id} + '/ads'" th:text="${ad.user.name} + ' ' + ${ad.user.surname}"></a></p>
+                            </div>
+                            <div sec:authorize="isAnonymous()" class="px-3">
+                                <p>Creator: <a class="btn" href="/login"> Для просмотра авторизуйтесь</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4 text-black">
+                        <div class="mb-5">
+                            <p class="lead fw-normal mb-1">About</p>
+                            <div class="p-4" style="background-color: #f8f9fa;">
+                                <p class="font-italic mb-1">Web Developer</p>
+                                <p class="font-italic mb-1">Lives in New York</p>
+                                <p class="font-italic mb-0">Photographer</p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="lead fw-normal mb-0">Фотографии</p>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                     alt="image 1" class="w-100 rounded-3">
+                            </div>
+                            <div class="col mb-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                                     alt="image 1" class="w-100 rounded-3">
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                     alt="image 1" class="w-100 rounded-3">
+                            </div>
+                            <div class="col">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                                     alt="image 1" class="w-100 rounded-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h1>Ad</h1>
 <p th:text="'Title: ' +${ad.title}"></p>
 <p th:text="'Price: ' + ${ad.price}"></p>
