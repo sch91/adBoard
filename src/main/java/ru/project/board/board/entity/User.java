@@ -18,21 +18,21 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false, length = 16)
     private UUID id;
 
-    @NotBlank
+    @NotBlank(message = "Поле номер телефона не должно быть пустым")
     @Column(unique = true, name = "phoneNumber", nullable = false)
-    @Pattern(regexp = "^\\+\\d{11}", message = "The phone number must match +___________")
+    @Pattern(regexp = "^\\+\\d{11}", message = "Номер телефона должен быть в формате '+###########'")
     private String phoneNumber;
 
-    @NotBlank
+    @NotBlank(message = "Поле пароль не должно быть пустым")
     @Column(nullable = false)
     private String password;
 
-    @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "The name must contain only alphabetic characters")
-    @NotBlank(message = "Name required")
+    @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "Имя должно содержать только буквенные символы")
+    @NotBlank(message = "Поле имя не должно быть пустым")
     private String name;
 
-    @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "The surname must contain only alphabetic characters")
-    @NotBlank(message = "Surname required")
+    @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "Фамилия должна содержать только буквенные символы")
+    @NotBlank(message = "Поле фамилия не должно быть пустым")
     private String surname;
 
     @Enumerated(EnumType.STRING)

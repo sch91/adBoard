@@ -25,7 +25,9 @@
       <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
       <label for="floatingPassword">Пароль</label>
     </div>
-
+    <div th:if="${param.error}">
+      Неверный номер телефона или пароль
+    </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
     <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
   </form>

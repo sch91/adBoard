@@ -16,10 +16,10 @@ public class Advertisement {
     @Column(unique = true, nullable = false, length = 16)
     private UUID id;
 
-    @NotBlank
+    @NotBlank(message = "Поле название не должно быть пустым")
     private String title;
 
-    @NotNull
+    @NotNull(message = "Поле цена не должно быть пустым")
     private int price;
 
     @Column(length = 1000)
