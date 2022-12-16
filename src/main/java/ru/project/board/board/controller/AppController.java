@@ -77,7 +77,8 @@ public class AppController {
     public String editMyAccountPost(@ModelAttribute(value = "user") User user,
                                     @RequestParam("file") MultipartFile file,
                                     BindingResult bindingResult,
-                                    Authentication authentication, Model model) throws IOException {
+                                    Authentication authentication, Model model
+    ) throws IOException {
         User currentUser = (User) authentication.getPrincipal();
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", currentUser);

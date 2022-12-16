@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.project.board.board.entity.Role;
 import ru.project.board.board.entity.User;
+import ru.project.board.board.service.AdService;
 import ru.project.board.board.service.UserService;
 
 import java.util.UUID;
@@ -19,12 +20,26 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AdService adService;
+
+    @GetMapping("/ads")
+    public String listOfAds(Model model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        if (user.getRole().equals(Role.ROLE_ADMIN)) {
+            model.addAttribute("listOfAds", adService.getAll());
+            return "adminListOfAds";
+        } else {
+            return "redirect:../error";
+        }
+    }
+
     @GetMapping("/users")
     public String userList(Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         if (user.getRole().equals(Role.ROLE_ADMIN)) {
             model.addAttribute("listOfUsers", userService.getAllUsers());
-            return "listOfUsers";
+            return "adminListOfUsers";
         } else {
             return "redirect:../error";
         }

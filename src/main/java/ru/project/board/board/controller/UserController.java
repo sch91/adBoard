@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.project.board.board.entity.Advertisement;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.UserNotFoundException;
 import ru.project.board.board.service.AdService;
@@ -29,8 +28,7 @@ public class UserController {
         try {
             User user = userService.getUserById(id);
             model.addAttribute("user", user);
-            Iterable<Advertisement> listOfAds = adService.getAllByUserId(user.getId());
-            model.addAttribute("listOfAds", listOfAds);
+            model.addAttribute("listOfAds", adService.getAllByUserId(user.getId()));
             return "adsListByUser";
 
         } catch (UserNotFoundException e) {

@@ -15,6 +15,7 @@ import ru.project.board.board.repository.ImageRepo;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,24 +30,28 @@ public class AdService {
         return adRepo.findById(id).orElseThrow(() -> new AdNotFoundException("Ad not found"));
     }
 
-    public Iterable<Advertisement> getAllByUserId(UUID id) {
-        return adRepo.getAllByUserId(id);
+    public List<Advertisement> getAllByUserId(UUID id) {
+        List<Advertisement> list = adRepo.getAllByUserId(id);
+        list.sort(((o1, o2) -> o2.getDateOfCreation().compareTo(o1.getDateOfCreation())));
+        return list;
     }
 
-    public Iterable<Advertisement> getAllByCityId(UUID id) {
+    public List<Advertisement> getAllByCityId(UUID id) {
         return adRepo.getAllByCityId(id);
     }
 
-    public Iterable<Advertisement> getAllByCategoryId(Long id) {
+    public List<Advertisement> getAllByCategoryId(Long id) {
         return adRepo.getAllByCategoryId(id);
     }
 
-    public Iterable<Advertisement> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId) {
+    public List<Advertisement> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId) {
         return adRepo.getAllByCityIdAndCategoryId(cityId, categoryId);
     }
 
-    public Iterable<Advertisement> getAll() {
-        return adRepo.findAll();
+    public List<Advertisement> getAll() {
+        List<Advertisement> list = adRepo.findAll();
+        list.sort(((o1, o2) -> o2.getDateOfCreation().compareTo(o1.getDateOfCreation())));
+        return list;
     }
 
     public void createAd(Advertisement advertisement, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
