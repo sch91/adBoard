@@ -6,7 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.service.AdService;
@@ -84,6 +87,13 @@ public class AppController {
         return "redirect:/my_account";
     }
 
+    @GetMapping("/my_account/delete")
+    public String deleteMyAccount(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        userService.deleteUserById(user.getId());
+        return "redirect:/logout";
+    }
+
     @GetMapping("/my_ads")
     public String myAds(Model model, Authentication authentication) {
         User currentUser = (User) authentication.getPrincipal();
@@ -98,12 +108,6 @@ public class AppController {
         model.addAttribute("listOfAds", adService.getAll());
         model.addAttribute("listOfCategories", categoryService.getListOfCategories());
         return "startpage";
-    }
-
-    @GetMapping("/delete/category/{id}")
-    public String deleteCategory(@PathVariable("id") Long id) {
-        categoryService.deleteCategoryById(id);
-        return "redirect:/";
     }
 
     @GetMapping("/hello")

@@ -8,7 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ru.project.board.board.entity.*;
+import ru.project.board.board.entity.Avatar;
+import ru.project.board.board.entity.Role;
+import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.UserNotFoundException;
 import ru.project.board.board.repository.AvatarRepo;
 import ru.project.board.board.repository.UserRepo;
@@ -79,6 +81,10 @@ public class UserService implements UserDetailsService {
     public boolean isPhoneNumberAlreadyExists(String phoneNumber) {
         User user = userRepo.findByPhoneNumber(phoneNumber);
         return user != null;
+    }
+
+    public void deleteUserById(UUID id) {
+        userRepo.deleteById(id);
     }
 
     public Iterable<User> getAllUsers() {
