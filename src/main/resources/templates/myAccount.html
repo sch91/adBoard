@@ -17,18 +17,18 @@
         <div class="card">
           <div class="rounded-top text-white d-flex flex-row" style="background-color: #222; height:193px;">
             <div th:if="${user.avatar != null}" class="ms-4 mt-3 d-flex flex-column" style="width: 150px;height: 150px;">
-                <img th:src="'/avatar/' + ${user.avatar.id}" width="150"  height="150"
+                <img th:src="'/avatar/' + ${user.avatar.id}"
                      alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                     style="width: 150px; z-index: 1">
+                     style="max-width: 150px; max-height: 150px; min-width: 150px; min-height: 150px; height: 400px z-index: 1">
               <a type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                       style="z-index: 1;" href="/my_account/edit">
                 Редактировать профиль
               </a>
             </div>
             <div th:if="${ user.avatar == null}" class="ms-4 mt-3 d-flex flex-column" style="width: 150px;">
-              <img src="https://omsk.imperiya-pola.ru/img/nophoto.jpg" width="150"  height="150"
+              <img src="https://omsk.imperiya-pola.ru/img/nophoto.jpg"
                    alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                   style="width: 150px; z-index: 1">
+                   style="width: 150px; height: 150px; z-index: 1">
               <a type="button" class="btn btn-outline-dark d-block" data-mdb-ripple-color="dark"
                  style="z-index: 1;" href="/my_account/edit">
                 Редактировать профиль
@@ -36,7 +36,12 @@
             </div>
             <div class="ms-3" style="margin-top: 130px;">
               <h4 th:text="${user.name} + ' ' +${user.surname}"></h4>
-              <p>Пользователь</p>
+              <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_ADMIN'}">
+                <p>Администратор</p>
+              </div>
+              <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_USER'}">
+                <p>Пользователь</p>
+              </div>
             </div>
           </div>
           <div class="p-4 text-black" style="background-color: white;">
@@ -74,10 +79,16 @@
                 <p class="font-italic mb-1" th:text="'Телефон: ' + ${user.phoneNumber}"></p>
               </div>
             </div>
-            <div class="d-flex justify-content-end text-center py-1">
+            <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_ADMIN'}" class="d-flex justify-content-end text-center py-1">
               <a type="button" class="btn btn-outline-danger " data-mdb-ripple-color="dark"
                  href="/logout">
                 Выйти из профиля
+              </a>
+            </div>
+            <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_USER'}" class="d-flex justify-content-end text-center py-1">
+              <a type="button" class="btn btn-outline-danger " data-mdb-ripple-color="dark"
+                 href="/my_account/delete">
+                Удалить профиля
               </a>
             </div>
           </div>

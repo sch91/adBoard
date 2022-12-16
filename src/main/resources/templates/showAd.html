@@ -13,12 +13,14 @@
             <div class="col col-lg-9 col-xl-12 ">
                 <div class="card bg-dark">
                     <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <h1  th:text="${ad.title}" class="text-primary"><strong></strong></h1>
                         <div class="d-flex justify-content-end text-center py-1">
+
                             <div sec:authorize="isAuthenticated()" class="px-3">
-                                <p>Creator: <a  class="btn" th:href="'/user/' + ${ad.user.id} + '/ads'" th:text="${ad.user.name} + ' ' + ${ad.user.surname}"></a></p>
+                                <a  class="btn" th:href="'/user/' + ${ad.user.id} + '/ads'" th:text="'Создатель: ' + ${ad.user.name} + ' ' + ${ad.user.surname}"></a>
                             </div>
                             <div sec:authorize="isAnonymous()" class="px-3">
-                                <p>Creator: <a class="btn" href="/login"> Для просмотра авторизуйтесь</a></p>
+                                <a class="btn btn-success" href="/login">Создатель:  Для просмотра авторизуйтесь</a>
                             </div>
                         </div>
                     </div>
@@ -32,26 +34,19 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <p class="lead fw-normal mb-0">Фотографии</p>
+                            <h4 class="lead fw-normal mb-0 text-light">Фотографии</h4>
                         </div>
-                        <div class="row g-2">
-                            <div class="col mb-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                     alt="image 1" class="w-100 rounded-3">
+                        <div class="row gap-3 ">
+                            <div th:each="image: ${ad.imageList}"  style="background-color:#E0E0E0 ; width: 420px;" class="row g-2">
+                                <div class="col mb-2">
+                                    <img style="width: 420px; height: 400px; " th:src="'/image/' + ${image.id} "
+                                         alt="image 1" class="w-100 rounded-3">
+                                </div>
                             </div>
-                            <div class="col mb-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                     alt="image 1" class="w-100 rounded-3">
-                            </div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                     alt="image 1" class="w-100 rounded-3">
-                            </div>
-                            <div class="col">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                     alt="image 1" class="w-100 rounded-3">
+                            <div th:if="${ #lists.isEmpty(ad.imageList)}"  style="background-color:#E0E0E0 ;" class="row g-2">
+                                <div class=" mb-2 text-center">
+                                    <img src="https://prikolists.club/wp-content/uploads/2019/11/Screenshot_1-13.jpg" class=" rounded" width="300" height="230" alt="...">
+                                </div>
                             </div>
                         </div>
                     </div>

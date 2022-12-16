@@ -7,18 +7,29 @@
 </head>
 <body class="img-fluid" style="background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618458257_40-phonoteka_org-p-fon-dlya-lendinga-40.jpg');">
 <div th:insert="~{model :: header}"></div>
-<h1>Login form</h1>
-<form th:action="@{/login}" method="post">
-  <p>Phone number: <label>
-    <input type="text" name="phoneNumber">
-  </label>
-  </p>
-  <p>Password: <label>
-    <input type="password" name="password">
-  </label>
-  </p>
-  <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-</form>
+
+<main class="text-center"
+      style="width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;">
+  <form th:action="@{/login}" method="post">
+    <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Пожалуйста, войдите</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" name="phoneNumber" placeholder="name@example.com">
+      <label for="floatingInput">Номер телефона</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+      <label for="floatingPassword">Пароль</label>
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+  </form>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
