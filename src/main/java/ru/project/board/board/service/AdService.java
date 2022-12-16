@@ -1,6 +1,7 @@
 package ru.project.board.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,27 +32,23 @@ public class AdService {
     }
 
     public List<Advertisement> getAllByUserId(UUID id) {
-        List<Advertisement> list = adRepo.getAllByUserId(id);
-        list.sort(((o1, o2) -> o2.getDateOfCreation().compareTo(o1.getDateOfCreation())));
-        return list;
+        return adRepo.getAllByUserId(id, Sort.by(Sort.Order.desc("dateOfCreation")));
     }
 
     public List<Advertisement> getAllByCityId(UUID id) {
-        return adRepo.getAllByCityId(id);
+        return adRepo.getAllByCityId(id, Sort.by(Sort.Order.desc("dateOfCreation")));
     }
 
     public List<Advertisement> getAllByCategoryId(Long id) {
-        return adRepo.getAllByCategoryId(id);
+        return adRepo.getAllByCategoryId(id, Sort.by(Sort.Order.desc("dateOfCreation")));
     }
 
     public List<Advertisement> getAllByCityIdAndCategoryId(UUID cityId, Long categoryId) {
-        return adRepo.getAllByCityIdAndCategoryId(cityId, categoryId);
+        return adRepo.getAllByCityIdAndCategoryId(cityId, categoryId, Sort.by(Sort.Order.desc("dateOfCreation")));
     }
 
     public List<Advertisement> getAll() {
-        List<Advertisement> list = adRepo.findAll();
-        list.sort(((o1, o2) -> o2.getDateOfCreation().compareTo(o1.getDateOfCreation())));
-        return list;
+        return adRepo.findAll(Sort.by(Sort.Order.desc("dateOfCreation")));
     }
 
     public void createAd(Advertisement advertisement, MultipartFile file1, MultipartFile file2, MultipartFile file3) throws IOException {
