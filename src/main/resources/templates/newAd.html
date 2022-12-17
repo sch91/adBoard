@@ -34,7 +34,6 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-3 mt-4 mb-3"></div>
                     <div class="col-sm-6 mt-3 mb-3">
                         <label  class="form-label">Город:</label>
                         <select class="form-control" th:field="*{city}">
@@ -42,7 +41,13 @@
                                     th:text="${cityFromList.name}"></option>
                         </select>
                     </div>
-                    <div class="col-sm-3 mt-4 mb-3"></div>
+
+                    <div class="col-sm-6 mt-3 mb-3">
+                        <label  class="form-label">Цена: </label>
+                        <input type="text" th:field="*{price}" class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                    </div>
+
 
                     <div class="col-4">
                         <label class=" mb-3 form-label ">Фото №1: <span class="text-muted">(Главное фото)</span></label>
