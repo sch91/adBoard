@@ -20,17 +20,29 @@
                                 <a  class="btn" th:href="'/user/' + ${ad.user.id} + '/ads'" th:text="'Создатель: ' + ${ad.user.name} + ' ' + ${ad.user.surname}"></a>
                             </div>
                             <div sec:authorize="isAnonymous()" class="px-3">
-                                <a class="btn btn-success" href="/login">Создатель:  Для просмотра авторизуйтесь</a>
+                                <a class="btn btn-success" href="/login">Создатель:  Для просмотра необходимо авторизоваться</a>
                             </div>
                         </div>
+
+
+
+                        <div class="bg-light col-12 mt-5">
+                            <div class="col-sm-6 mt-5 mb-3">
+                                <label  class="form-label"><strong>Категория</strong>:</label>
+                                <h3 th:text="${ad.category.name}"></h3>
+                            </div>
+                        </div>
+
+
+
+
+
                     </div>
                     <div class="card-body p-4 text-black">
                         <div class="mb-5">
-                            <p class="lead fw-normal mb-1">About</p>
+                            <p class="lead fw-normal mb-1 text-light">Описание</p>
                             <div class="p-4" style="background-color: #f8f9fa;">
-                                <p class="font-italic mb-1">Web Developer</p>
-                                <p class="font-italic mb-1">Lives in New York</p>
-                                <p class="font-italic mb-0">Photographer</p>
+                                <p th:text="${ad.category.name}" class="font-italic mb-1"></p>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -62,15 +74,6 @@
 
 
 
-
-
-
-
-
-
-
-<h1>Ad</h1>
-<p th:text="'Title: ' +${ad.title}"></p>
 <p th:text="'Price: ' + ${ad.price}"></p>
 <p th:text="'Category: ' + ${ad.category.name}"></p>
 <p th:text="'City: ' + ${ad.city.name}"></p>
