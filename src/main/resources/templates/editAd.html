@@ -10,8 +10,7 @@
 
 <main>
     <div class="py-3 text-center mt-3">
-        <h2>Новые объявление</h2>
-        <p class="lead"  th:text="${user.name} + ' ' + ${user.surname} + ' (' + ${user.phoneNumber} + ')'"></p>
+        <h2>Редактировать объявление</h2>
     </div>
     <div class="row text-light" style="width: 100%;
     max-width: 900px;
@@ -35,7 +34,7 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-3 mt-4 mb-3"></div>
+
                     <div class="col-sm-6 mt-3 mb-3">
                         <label  class="form-label">Город:</label>
                         <select class="form-control" th:field="*{city}">
@@ -43,7 +42,13 @@
                                     th:text="${cityFromList.name}"></option>
                         </select>
                     </div>
-                    <div class="col-sm-3 mt-4 mb-3"></div>
+
+                    <div class="col-sm-6 mt-3 mb-3">
+                        <label  class="form-label">Цена: </label>
+                        <input type="text" th:field="*{price}" th:value="${price}" class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                    </div>
+
 
                     <div class="col-4">
                         <label class=" mb-3 form-label ">Фото №1: <span class="text-muted">(Главное фото)</span></label>
@@ -79,50 +84,6 @@
     </div>
 </main>
 
-
-<h1>form for editing an advertisement</h1>
-<h2 th:text="${ad.user.name} + ' ' + ${ad.user.surname} + '(' + ${ad.user.phoneNumber} + ')'"></h2>
-<form th:action="@{/ad/edit/{id}(id=${ad.id})}" th:object="${ad}" method="post" enctype="multipart/form-data">
-    <p>Title: <label>
-        <input type="text" th:field="*{title}" th:value="${title}">
-    </label>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-    </p>
-    <p>Price: <label>
-        <input type="number" th:field="*{price}" th:value="${price}">
-    </label>
-        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-    </p>
-    <p>Category: <label>
-        <select th:field="*{category}">
-            <option th:each="categoryFromList : ${listOfCategories}" th:value="${categoryFromList.id}"
-                    th:text="${categoryFromList.name}"></option>
-        </select>
-    </label></p>
-    <p>City: <label>
-        <select th:field="*{city}">
-            <option th:each="cityFromList : ${listOfCities}" th:value="${cityFromList.id}"
-                    th:text="${cityFromList.name}"></option>
-        </select>
-    </label></p>
-    <p>Description: <label>
-        <textarea th:field="*{description}"></textarea>
-    </label>
-    </p>
-    <p>Image 1: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file1">
-    </label>
-    </p>
-    <p>Image 2: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file2">
-    </label>
-    </p>
-    <p>Image 3: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file3">
-    </label>
-    </p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-</form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
