@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.project.board.board.entity.Advertisement;
 import ru.project.board.board.entity.Category;
+import ru.project.board.board.entity.Role;
 import ru.project.board.board.entity.User;
 import ru.project.board.board.exception.AdNotFoundException;
 import ru.project.board.board.exception.CategoryNotFoundException;
@@ -79,7 +80,7 @@ public class AdController {
         User currentUser = (User) authentication.getPrincipal();
         try {
             Advertisement advertisement = adService.getAdById(id);
-            if (!currentUser.getId().equals(advertisement.getUser().getId())) {
+            if (!currentUser.getId().equals(advertisement.getUser().getId()) && !currentUser.getRole().equals(Role.ROLE_ADMIN)) {
                 throw new AdNotFoundException("");
             }
             model.addAttribute("ad", advertisement);

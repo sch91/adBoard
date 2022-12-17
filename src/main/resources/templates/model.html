@@ -2,30 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <div th:fragment="header">
     <header class="p-3 text-bg-dark">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img class="bi me-2"  width="40" height="40" role="img" src="https://icon-library.com/images/cart-icon-16.png">
+                    <img class="bi me-2" width="40" height="40" role="img"
+                         src="https://icon-library.com/images/cart-icon-16.png">
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><div class="btn-group">
-                        <a type="button" href="/" class="btn btn-secondary">Категории</a>
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="false"
-                                aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li th:each="Categoria: ${listOfCategories}">
-                                <a  class="dropdown-item"  th:href="'/ad/list/by_category/' + ${Categoria.id}" th:text="${Categoria.name}"></a>
-                            </li>
-                        </ul>
-                    </div></li>
+                    <li>
+                        <div class="btn-group">
+                            <a type="button" href="/" class="btn btn-secondary">Категории</a>
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-haspopup="false"
+                                    aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li th:each="Categoria: ${listOfCategories}">
+                                    <a class="dropdown-item" th:href="'/ad/list/by_category/' + ${Categoria.id}"
+                                       th:text="${Categoria.name}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
 
 
@@ -36,33 +42,43 @@
 
                 <div sec:authorize="isAuthenticated()" class="text-end">
                     <div th:if="${#authentication.getPrincipal().avatar == null}" class="dropdown text-end">
-                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
-                            <img src="https://omsk.imperiya-pola.ru/img/nophoto.jpg" alt="mdo" width="40" height="40" class="rounded-circle">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle"
+                           data-bs-toggle="dropdown" aria-expanded="true">
+                            <img src="https://omsk.imperiya-pola.ru/img/nophoto.jpg" alt="mdo" width="40" height="40"
+                                 class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><h4 class="text-center text-primary float-right" th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4></li>
+                            <li><h4 class="text-center text-primary float-right"
+                                    th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4>
+                            </li>
                             <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
                             <li><a class="dropdown-item" href="/ad/new">Добавить объявление</a></li>
                             <li><a class="dropdown-item" href="/my_ads">Мои объявления</a></li>
                             <div th:if="${#authentication.getPrincipal().role.toString()=='ROLE_ADMIN'}">
                                 <li>
-                                    <a class="dropdown-item" href="/admin/users">Список пользователей</a>
+                                    <a class="dropdown-item" href="/admin/users">Все пользователи</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/admin/ads">Мои объявления</a>
+                                    <a class="dropdown-item" href="/admin/ads">Все объявления</a>
                                 </li>
                             </div>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item " href="/logout">Выйти из профиля</a></li>
                         </ul>
                     </div>
 
                     <div th:if="${#authentication.getPrincipal().avatar != null}" class="dropdown text-end">
-                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
-                            <img th:src="'/avatar/' + ${#authentication.getPrincipal().avatar.id}" alt="mdo" width="40" height="40" class="rounded-circle">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle"
+                           data-bs-toggle="dropdown" aria-expanded="true">
+                            <img th:src="'/avatar/' + ${#authentication.getPrincipal().avatar.id}" alt="mdo" width="40"
+                                 height="40" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><h4 class="text-center text-primary float-right" th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4></li>
+                            <li><h4 class="text-center text-primary float-right"
+                                    th:text="${#authentication.getPrincipal().surname}+ ' ' + ${#authentication.getPrincipal().name} "></h4>
+                            </li>
                             <li><a class="dropdown-item" href="/my_account">Мой профиль</a></li>
                             <li><a class="dropdown-item" href="/ad/new">Добавить объявление</a></li>
                             <li><a class="dropdown-item" href="/my_ads">Мои объявления</a></li>
@@ -74,7 +90,9 @@
                                     <a class="dropdown-item" href="/admin/ads">Список объявлений</a>
                                 </li>
                             </div>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item " href="/logout">Выйти из профиля</a></li>
                         </ul>
                     </div>
@@ -85,6 +103,8 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 </html>
