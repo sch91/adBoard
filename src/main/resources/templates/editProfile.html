@@ -8,27 +8,49 @@
 </head>
 <body class="img-fluid" style="background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618458257_40-phonoteka_org-p-fon-dlya-lendinga-40.jpg');">
 <div th:insert="~{model :: header}"></div>
-<h1>Form for adding a user</h1>
-<form action="/my_account/edit" th:action="@{/my_account/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
-    <p>Name: <label>
-        <input type="text" th:field="*{name}" th:value="${name}">
-    </label>
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-          </span>
-    </p>
-    <p>Surname: <label>
-        <input type="text" th:field="*{surname}" th:value="${surname}">
-    </label>
-        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
-          </span>
-    </p>
-    <p>Avatar: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file">
-    </label>
-    </p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-</form>
+<main>
+    <div class="py-3 text-center mt-3">
+        <h2>Редактирование профиля</h2>
+    </div>
+    <div class="row text-light" style="width: 100%;
+    max-width: 900px;
+    margin: auto;
+    display: flex;">
+        <div class="bg-dark bg-opacity-75 rounded ">
+            <form  action="/my_account/edit" th:action="@{/my_account/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
+                <div class="row g-3">
 
+                    <div class="col-sm-6 mt-5 mb-3">
+                        <label  class="form-label">Имя:</label>
+                        <input type="text" th:field="*{name}" class="form-control" th:value="${name}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
+
+                    <div class="col-sm-6 mt-5 mb-3">
+                        <label  class="form-label">Фамилия:</label>
+                        <input type="text" th:field="*{surname}" class="form-control" th:value="${surname}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+                    </div>
+
+                    <div class="col-5">
+                        <label class="col-5 mb-3 form-label form-label">Аватар: </label>
+                        <input class="form-control" type="file" accept=".png, .jpg, .jpeg" name="file">
+                    </div>
+
+                    <div class="col-7"></div>
+
+                    <div class="col-4 mt-3 mb-3">
+                        <button class="w-100 btn btn-outline-primary btn-lg" type="reset" value="Reset">Очистить</button>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4 mt-3 mb-3">
+                        <button class="w-100 btn btn-lg btn-outline-success" type="submit" value="Submit">Изменить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

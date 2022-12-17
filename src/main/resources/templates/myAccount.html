@@ -19,7 +19,7 @@
             <div th:if="${user.avatar != null}" class="ms-4 mt-3 d-flex flex-column" style="width: 150px;height: 150px;">
                 <img th:src="'/avatar/' + ${user.avatar.id}"
                      alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                     style="max-width: 150px; max-height: 150px; min-width: 150px; min-height: 150px; height: 400px z-index: 1">
+                     style="max-width: 150px; max-height: 150px; min-width: 150px; min-height: 150px; height: 400px; z-index: 1">
               <a type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
                       style="z-index: 1;" href="/my_account/edit">
                 Редактировать профиль
@@ -61,15 +61,16 @@
           <div class="row gap-3 ">
             <div th:each="ad : ${listOfAds}" class="card ms-4 mt-3 row" style="background-color:#E0E0E0 ; width: 221px;">
               <div th:if="${not #lists.isEmpty(ad.imageList)}">
-                <img th:src="'/image/' + ${ad.imageList.get(0).id}" class="card-img-top" alt="...">
+                <img style="max-width: 170px; max-height: 150px; min-width: 170px; min-height: 150px;" th:src="'/image/' + ${ad.imageList.get(0).id}" class="card-img-top" alt="...">
               </div>
               <div th:if="${ #lists.isEmpty(ad.imageList)}" >
-                <img src="https://prikolists.club/wp-content/uploads/2019/11/Screenshot_1-13.jpg" class="card-img-top" alt="...">
+                <img style="max-width: 170px; max-height: 150px; min-width: 170px; min-height: 150px;" src="https://prikolists.club/wp-content/uploads/2019/11/Screenshot_1-13.jpg" class="card-img-top" alt="...">
               </div>
-              <div class="card-body">
-                <p th:text="${ad.title}" class="card-text text-primary"></p>
-                <a th:href="'/ad/info/' + ${ad.id}" class="btn btn-secondary float-end ">Подробнее...</a>
-              </div>
+                <div class="card-body">
+                <p th:text="${ad.title}" class="card-text text-primary"></p></div>
+                <div class="d-flex justify-content-end text-center py-1">
+                  <a th:href="'/ad/info/' + ${ad.id}" class="btn btn-secondary">Подробнее...</a>
+                </div>
             </div>
           </div>
           <div class="card-body p-4 text-black">

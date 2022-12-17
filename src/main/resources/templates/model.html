@@ -13,15 +13,19 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Категории
-                    </button>
-                        <ul  class="dropdown-menu dropdown-menu-dark">
+                    <li><div class="btn-group">
+                        <a type="button" href="/" class="btn btn-secondary">Категории</a>
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="false"
+                                aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
                             <li th:each="Categoria: ${listOfCategories}">
                                 <a  class="dropdown-item"  th:href="'/ad/list/by_category/' + ${Categoria.id}" th:text="${Categoria.name}"></a>
                             </li>
                         </ul>
-                    </li>
+                    </div></li>
                     <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>

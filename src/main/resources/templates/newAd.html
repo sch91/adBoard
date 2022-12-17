@@ -7,137 +7,80 @@
 </head>
 <body class="img-fluid" style="background-attachment: fixed; background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618458257_40-phonoteka_org-p-fon-dlya-lendinga-40.jpg');">
 <div th:insert="~{model :: header}"></div>
-<h1>form for creating an advertisement</h1>
-<h2 th:text="${user.name} + ' ' + ${user.surname} + '(' + ${user.phoneNumber} + ')'"></h2>
-<form action="/ad/new" th:action="@{/ad/new}" th:object="${ad}" method="post" enctype="multipart/form-data">
-    <p>Title: <label>
-        <input type="text" th:field="*{title}">
-    </label>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-    </p>
-    <p>Price: <label>
-        <input type="number" th:field="*{price}">
-    </label>
-        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-    </p>
-    <p>Category: <label>
-        <select th:field="*{category}">
-            <option th:each="categoryFromList : ${listOfCategories}" th:value="${categoryFromList.id}"
-                    th:text="${categoryFromList.name}"></option>
-        </select>
-    </label></p>
-    <p>City: <label>
-        <select th:field="*{city}">
-            <option th:each="cityFromList : ${listOfCities}" th:value="${cityFromList.id}"
-                    th:text="${cityFromList.name}"></option>
-        </select>
-    </label></p>
-    <p>Description: <label>
-        <textarea th:field="*{description}"></textarea>
-    </label>
-    </p>
-    <p>Image 1: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file1">
-    </label>
-    </p>
-    <p>Image 2: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file2">
-    </label>
-    </p>
-    <p>Image 3: <label>
-        <input type="file" accept=".png, .jpg, .jpeg" name="file3">
-    </label>
-    </p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
-</form>
-
-
-
-
 <main>
-    <div class="py-3 text-center">
-        <img class="d-block mx-auto mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h2>Новый пользователь</h2>
-        <p class="lead">Регистрация нового пользователя</p>
+    <div class="py-3 text-center mt-3">
+        <h2>Новые объявление</h2>
+        <p class="lead"  th:text="${user.name} + ' ' + ${user.surname} + ' (' + ${user.phoneNumber} + ')'"></p>
     </div>
-    <div class="row" style="width: 100%;
+    <div class="row text-light" style="width: 100%;
     max-width: 900px;
     margin: auto;
     display: flex;">
-        <div class="bg-dark bg-opacity-25 rounded">
-            <form class="needs-validation" novalidate="">
+        <div class="bg-dark bg-opacity-75 rounded ">
+            <form  action="/ad/new" th:action="@{/ad/new}" th:object="${ad}" method="post" enctype="multipart/form-data">
                 <div class="row g-3">
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
+
+                    <div class="col-sm-6 mt-5 mb-3">
+                        <label  class="form-label">Название:</label>
+                        <input type="text" th:field="*{title}" class="form-control">
+                        <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                     </div>
 
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">Last name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid last name is required.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="username" class="form-label">Username</label>
-                        <div class="input-group has-validation">
-                            <span class="input-group-text">@</span>
-                            <input type="text" class="form-control" id="username" placeholder="Username" required="">
-                            <div class="invalid-feedback">
-                                Your username is required.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                        <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                    </div>
-
-                    <div class="col-md-5">
-                        <label for="country" class="form-label">Country</label>
-                        <select class="form-select" id="country" required="">
-                            <option value="">Choose...</option>
-                            <option>United States</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="state" class="form-label">State</label>
-                        <select class="form-select" id="state" required="">
-                            <option value="">Choose...</option>
-                            <option>California</option>
+                    <div class="col-sm-6 mt-5 mb-3">
+                        <label  class="form-label">Категория:</label>
+                        <select  class="form-control" th:field="*{category}">
+                            <option th:each="categoryFromList : ${listOfCategories}" th:value="${categoryFromList.id}"
+                                    th:text="${categoryFromList.name}"></option>
                         </select>
                     </div>
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+
+                    <div class="col-sm-3 mt-4 mb-3"></div>
+                    <div class="col-sm-6 mt-3 mb-3">
+                        <label  class="form-label">Город:</label>
+                        <select class="form-control" th:field="*{city}">
+                            <option th:each="cityFromList : ${listOfCities}" th:value="${cityFromList.id}"
+                                    th:text="${cityFromList.name}"></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 mt-4 mb-3"></div>
+
+                    <div class="col-4">
+                        <label class=" mb-3 form-label ">Фото №1: <span class="text-muted">(Главное фото)</span></label>
+                        <input class="form-control" type="file" accept=".png, .jpg, .jpeg" name="file1">
+                    </div>
+
+                    <div class="col-4">
+                        <label class="col-5 mb-3 form-label ">Фото №2: </label>
+                        <input class="form-control" type="file" accept=".png, .jpg, .jpeg" name="file2">
+                    </div>
+
+                    <div class="col-4">
+                        <label class="col-5 mb-3 form-label ">Фото №3: </label>
+                        <input class="form-control" type="file" accept=".png, .jpg, .jpeg" name="file3">
+                    </div>
+
+                    <div class="col-12 mt-3 mb-3">
+                        <label  class="form-label">Описание: </label>
+                        <textarea class="form-control" th:field="*{description}"></textarea>
+                    </div>
+
+                    <div class="col-4 mt-3 mb-3">
+                        <button class="w-100 btn btn-outline-primary btn-lg" type="reset" value="Reset">Очистить</button>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4 mt-3 mb-3">
+                        <button class="w-100 btn btn-lg btn-outline-success" type="submit" value="Submit">Добавить</button>
+                    </div>
+
+                </div>
             </form>
         </div>
     </div>
 </main>
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
