@@ -16,7 +16,6 @@ import ru.project.board.board.service.AdService;
 import ru.project.board.board.service.CategoryService;
 import ru.project.board.board.service.CityService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.UUID;
