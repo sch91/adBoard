@@ -111,15 +111,14 @@ public class AdController {
     }
 
     @GetMapping("/delete/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")
-    public String deleteAd(@PathVariable("id") UUID id, Authentication authentication, HttpServletRequest request) {
-        String refer = request.getHeader("Referer");
+    public String deleteAd(@PathVariable("id") UUID id, Authentication authentication) {
         try {
             Advertisement advertisement = adService.getAdById(id);
             adService.deleteAd(advertisement, authentication);
         } catch (AdNotFoundException e) {
             return "redirect:/error";
         }
-        return "redirect:" + refer;
+        return "redirect:/";
     }
 
     @GetMapping("/list/by_city/{id:^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$}")

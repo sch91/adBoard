@@ -29,7 +29,7 @@
             <td th:text="${ad.category.name}"></td>
             <td th:text="${ad.city.name}"></td>
             <td><a class="btn btn-info" th:href="'/ad/info/'+${ad.id}" >Inform</a></td>
-            <td><a class="btn btn-danger" th:href="'/admin/delete/'+${ad.id}"> Delete</a></td>
+            <td><a class="btn btn-danger" th:href="'/admin/delete/ad/'+${ad.id}"> Delete</a></td>
         </tr>
         </tbody>
     </table>

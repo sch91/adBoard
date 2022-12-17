@@ -1,6 +1,7 @@
 package ru.project.board.board.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class Advertisement {
     private String title;
 
     @NotNull(message = "Поле цена не должно быть пустым")
+    @Min(value = 0, message = "Цена не может быть отрицательной")
     private int price;
 
     @Column(length = 1000)

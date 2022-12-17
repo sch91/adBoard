@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class User implements UserDetails {
 
     @NotBlank(message = "Поле пароль не должно быть пустым")
     @Column(nullable = false)
+    @Size(min = 4, message = "Пароль должен быть не менее 4 символов")
     private String password;
 
     @Pattern(regexp = "[а-яА-Яa-zA-Z]*-?[а-яА-Яa-zA-Z]*", message = "Имя должно содержать только буквенные символы")

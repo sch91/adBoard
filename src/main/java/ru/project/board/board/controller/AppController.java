@@ -48,7 +48,7 @@ public class AppController {
     @PostMapping("/registration")
     public String registrationPost(@Valid @ModelAttribute(value = "user") User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file) throws IOException {
         if (userService.isPhoneNumberAlreadyExists(user.getPhoneNumber())) {
-            bindingResult.addError(new FieldError("ad", "phoneNumber", "phone number is already exists"));
+            bindingResult.addError(new FieldError("ad", "phoneNumber", "Такой номер телефона уже существует"));
         }
         if (bindingResult.hasFieldErrors()) {
             return "registration";
