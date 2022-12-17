@@ -27,7 +27,8 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.surname}"></td>
             <td th:text="${user.phoneNumber}"></td>
-            <td><a class="btn btn-danger" th:href="'/admin/delete/user/' + ${user.id}">delete</a></td>
+            <td th:if="${user.role.toString() == 'ROLE_USER'}"><a class="btn btn-danger" th:href="'/admin/delete/user/' + ${user.id}">delete</a></td>
+            <td th:if="${user.role.toString() == 'ROLE_ADMIN'}"><a class="btn btn-danger">ADMIN</a></td>
         </tr>
         </tbody>
     </table>
